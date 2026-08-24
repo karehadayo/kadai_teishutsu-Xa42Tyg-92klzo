@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>課題まとめサイト</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --ink: #23282b;
+  --ink-soft: #5b6266;
+  --paper: #ffffff;
+  --paper-tint: #f6f7f8;
+  --line: #e4e7e9;
+  --accent: #2f6f5e;
+  --accent-soft: #e8f1ee;
+  --accent-ink: #1f4f42;
+  --radius: 10px;
+  --serif: "Shippori Mincho", "Noto Serif JP", serif;
+  --sans: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ---------- Header ---------- */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+.header-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.brand .mark {
+  width: 9px;
+  height: 9px;
+  background: var(--accent);
+  border-radius: 2px;
+  display: inline-block;
+  transform: translateY(-1px);
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  display: block;
+  padding: 8px 16px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  border-radius: 999px;
+  color: var(--ink-soft);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+nav a:hover { background: var(--paper-tint); color: var(--ink); }
+nav a.active { background: var(--accent-soft); color: var(--accent-ink); }
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+.menu-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--ink);
+  margin: 5px 0;
+  transition: 0.2s;
+}
+
+/* ---------- Layout ---------- */
+main { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+.page { display: none; padding: 56px 0 96px; }
+.page.active { display: block; animation: fade-in 0.35s ease; }
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.eyebrow {
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+h1.page-title {
+  font-family: var(--serif);
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  margin: 0 0 12px;
+  letter-spacing: 0.01em;
+}
+
+.page-desc {
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+  line-height: 1.8;
+  max-width: 640px;
+  margin-bottom: 40px;
+}
+
+/* ---------- Home ---------- */
+.hero {
+  padding: 40px 0 20px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 40px;
+}
+
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.1rem, 4.2vw, 3rem);
+  line-height: 1.35;
+  margin: 0 0 18px;
+}
+
+.hero p {
+  color: var(--ink-soft);
+  font-size: 1.02rem;
+  line-height: 1.9;
+  max-width: 560px;
+  margin: 0 0 32px;
+}
+
+.home-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.home-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 26px 24px;
+  background: var(--paper);
+  transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+}
+
+.home-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -12px rgba(47, 111, 94, 0.35);
+}
+
+.home-card .num {
+  font-family: var(--serif);
+  font-size: 0.8rem;
+  color: var(--accent);
+  margin-bottom: 10px;
+  display: block;
+}
+
+.home-card h3 {
+  margin: 0 0 8px;
+  font-size: 1.15rem;
+  font-family: var(--serif);
+}
+
+.home-card p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+
+/* ---------- Accordion tree ---------- */
+.tree { border-top: 1px solid var(--line); }
+
+.category {
+  border-bottom: 1px solid var(--line);
+}
+
+.category-head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 20px 4px;
+  text-align: left;
+  font-family: var(--sans);
+}
+
+.category-head .label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.category-head .bullet {
+  color: var(--accent);
+  font-family: var(--serif);
+  font-size: 1.1rem;
+}
+
+.category-head .chevron {
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid var(--ink-soft);
+  border-bottom: 2px solid var(--ink-soft);
+  transform: rotate(-45deg);
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+  margin-right: 6px;
+}
+
+.category.open > .category-head .chevron { transform: rotate(45deg); }
+
+.sub-list {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.category.open > .sub-list { max-height: 3000px; }
+
+.sub-item {
+  border-top: 1px solid var(--line);
+  margin-left: 20px;
+  padding-left: 16px;
+  border-left: 2px solid var(--line);
+}
+
+/* leaf link (no further children): whole row is a link */
+a.sub-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 4px;
+  gap: 12px;
+}
+
+a.sub-row:hover .sub-name { color: var(--accent-ink); }
+a.sub-row:hover .goto { background: var(--accent); color: #fff; }
+
+/* branch header (has grandchildren): clickable button */
+button.sub-row {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--sans);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 4px;
+  text-align: left;
+}
+
+.sub-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: var(--ink);
+  transition: color 0.15s ease;
+}
+
+.sub-name .dash {
+  color: var(--ink-soft);
+  font-family: var(--serif);
+}
+
+.goto {
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 12px;
+  transition: background 0.15s ease, color 0.15s ease;
+  flex-shrink: 0;
+}
+
+.unit-list {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.sub-item.open > .unit-list { max-height: 1000px; }
+
+.unit-item {
+  border-top: 1px solid var(--line);
+  margin-left: 18px;
+  padding-left: 16px;
+  border-left: 2px dotted var(--line);
+}
+
+.unit-item a.sub-row { padding: 12px 4px; }
+.unit-item .sub-name { font-size: 0.9rem; color: var(--ink-soft); }
+
+/* ---------- 課題ページ: YouTube解説 + PDFの2ボタン行 ---------- */
+.assignment-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 4px;
+  gap: 12px;
+}
+
+.unit-item .assignment-row { padding: 12px 4px; }
+.unit-item .assignment-row .sub-name { font-size: 0.9rem; color: var(--ink-soft); }
+
+.assignment-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+a.goto-video,
+a.goto-pdf {
+  display: inline-block;
+}
+
+a.goto-video:hover:not(.goto-disabled) {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+a.goto-pdf:hover:not(.goto-disabled) {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
+
+.goto-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ---------- 使い方 page ---------- */
+.howto-block {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 26px 28px;
+  margin-bottom: 18px;
+  background: var(--paper-tint);
+}
+
+.howto-block h3 {
+  margin: 0 0 10px;
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.howto-block h3 .step {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--sans);
+  flex-shrink: 0;
+}
+
+.howto-block p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.85;
+}
+
+.howto-demo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  font-size: 0.85rem;
+}
+
+.howto-demo .demo-pill {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 14px;
+  background: #fff;
+}
+.howto-demo .arrow { color: var(--accent); }
+
+/* ---------- Auth Gate ---------- */
+#auth-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.auth-box {
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+}
+
+.auth-box .brand {
+  justify-content: center;
+  margin-bottom: 8px;
+  font-size: 1.3rem;
+}
+
+.auth-desc {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  line-height: 1.8;
+  margin: 0 0 32px;
+}
+
+#auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+#auth-password {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-size: 0.98rem;
+  font-family: var(--sans);
+  background: var(--paper-tint);
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.15s ease;
+  text-align: center;
+}
+
+#auth-password:focus {
+  border-color: var(--accent);
+  background: var(--paper);
+}
+
+.auth-error {
+  margin: -4px 0 0;
+  font-size: 0.82rem;
+  color: #b0473f;
+  text-align: center;
+}
+
+.auth-remember {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.86rem;
+  color: var(--ink-soft);
+  cursor: pointer;
+  user-select: none;
+}
+
+.auth-remember input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+#auth-form button {
+  margin-top: 6px;
+  padding: 13px 16px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.96rem;
+  font-weight: 600;
+  font-family: var(--sans);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+#auth-form button:hover {
+  background: var(--accent-ink);
+}
+
+/* ---------- footer ---------- */
+footer {
+  border-top: 1px solid var(--line);
+  padding: 28px 24px;
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 720px) {
+  nav { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--paper); border-bottom: 1px solid var(--line); }
+  nav.open { display: block; }
+  nav ul { flex-direction: column; padding: 8px 16px 16px; }
+  nav a { padding: 12px 8px; border-radius: 6px; }
+  .menu-toggle { display: block; }
+  .home-cards { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- 認証ゲート -->
+<div id="auth-gate">
+  <div class="auth-box">
+    <div class="brand"><span class="mark"></span>課題まとめサイト</div>
+    <p class="auth-desc">このサイトは校内限定です。パスワードを入力してください。</p>
+    <form id="auth-form">
+      <input type="password" id="auth-password" placeholder="パスワード" autocomplete="current-password" required />
+      <p class="auth-error" id="auth-error" style="display:none;">パスワードが違います。</p>
+      <label class="auth-remember">
+        <input type="checkbox" id="auth-remember" />
+        このデバイスを記憶する
+      </label>
+      <button type="submit">サイトに入る</button>
+    </form>
+  </div>
+</div>
+
+<div id="app-root" style="display:none;">
+
+<header>
+  <div class="header-inner">
+    <div class="brand"><span class="mark"></span>課題まとめサイト</div>
+    <nav id="main-nav">
+      <ul>
+        <li><a href="#home" data-page-link="home">ホーム</a></li>
+        <li><a href="#lecture" data-page-link="lecture">解説</a></li>
+        <li><a href="#assignment" data-page-link="assignment">課題</a></li>
+        <li><a href="#howto" data-page-link="howto">使い方</a></li>
+      </ul>
+    </nav>
+    <button class="menu-toggle" id="menu-toggle" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ホーム -->
+  <section class="page" id="home">
+    <div class="hero">
+      <h1>課題を、<br>ここ一つにまとめました。</h1>
+      <p>見たい課題のPDFに、いつでもすぐアクセスできます。</p>
+    </div>
+    <div class="home-cards">
+      <div class="home-card" data-page-link="lecture">
+        <span class="num">解説</span>
+        <h3>動画を見る</h3>
+        <p>数学・物理・化学の単元ごとにYouTube解説へリンクしています。</p>
+      </div>
+      <div class="home-card" data-page-link="assignment">
+        <span class="num">課題</span>
+        <h3>課題PDFを開く</h3>
+        <p>教材ごとに課題のPDF/YouTubeでの問題を解く思考過程を閲覧/視聴できます。</p>
+      </div>
+      <div class="home-card" data-page-link="howto">
+        <span class="num">使い方</span>
+        <h3>サイトの使い方</h3>
+        <p>メニューの開き方など、基本的な操作を説明しています。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 解説 -->
+  <section class="page" id="lecture">
+    <div class="eyebrow">LECTURE</div>
+    <h1 class="page-title">解説</h1>
+    <p class="page-desc">科目をクリックすると単元が表示されます。単元をクリックすると、YouTubeの解説動画が新しいタブで開きます。</p>
+    <div class="tree" id="lecture-tree"></div>
+  </section>
+
+  <!-- 課題 -->
+  <section class="page" id="assignment">
+    <div class="eyebrow">ASSIGNMENT</div>
+    <h1 class="page-title">課題</h1>
+    <p class="page-desc">科目 → 教材の順にクリックして絞り込み、該当箇所を開いてください。</p>
+    <div class="tree" id="assignment-tree"></div>
+  </section>
+
+  <!-- 使い方 -->
+  <section class="page" id="howto">
+    <div class="eyebrow">HOW TO USE</div>
+    <h1 class="page-title">使い方</h1>
+    <p class="page-desc">「解説」「課題」ページはどちらも同じ操作で開けます。</p>
+
+    <div class="howto-block">
+      <h3><span class="step">1</span>科目をクリック</h3>
+      <p>最初は科目名(数学・物理・化学など)だけが並んでいます。見たい科目をクリックすると、その下の単元一覧が開きます。</p>
+      <div class="howto-demo">
+        <span class="demo-pill">・数学</span><span class="arrow">クリック →</span><span class="demo-pill">数1 ／ 数A ／ 数2 …</span>
+      </div>
+    </div>
+
+    <div class="howto-block">
+      <h3><span class="step">2</span>単元をクリック</h3>
+      <p>単元名をクリックすると、その内容(YouTube解説動画、または課題PDF)が新しいタブで開きます。教材によっては、さらに下の階層が表示される場合もあります。</p>
+      <div class="howto-demo">
+        <span class="demo-pill">ーコネクト</span><span class="arrow">クリック →</span><span class="demo-pill">数2 ／ 数B …</span>
+      </div>
+    </div>
+
+    <div class="howto-block">
+      <h3><span class="step">3</span>もう一度クリックで閉じる</h3>
+      <p>開いた科目や教材は、同じ場所をもう一度クリックすると閉じることができます。</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>&copy; 2026 No2703. All Rights Reserved</footer>
+
+</div>
+
+<script>
+// ============================================================
+// このファイルを編集するだけで、サイトの中身を更新できます。
+// url: "#" のところに、実際のYouTubeリンクやPDFのパスを入れてください。
+// ============================================================
+
+// ---------- サイトのパスワード ----------
+// ここには平文のパスワードではなく「ハッシュ値」を書きます。
+// ハッシュ値の作り方は index.html 内の「パスワードの作り方」を参照。
+// (下の値はダミーです。ご自身のパスワードのハッシュ値に差し替えてください)
+const SITE_PASSWORD_HASH = "b007c9db1cee3a5a2d442ae4d49e348b69e0ec421db8fa5f6647cc2199f5b563";
+
+// ---------- 解説(YouTube + PDF資料) ----------
+// 「・」= 大分類 (category)
+// 「ー」= 中分類 (sub)
+// 「ーー」= 小分類 (unit) ※なくてもOK
+// 各項目は videoUrl(YouTube解説) と pdfUrl(配布資料PDF) の2つを持てます。
+// 片方だけ使いたい場合は "#" のままでもOK(ボタンはグレーのまま押せなくなります)。
+const LECTURE_DATA = [
+  {
+    category: "数学",
+    subs: [
+      { name: "数1", videoUrl: "#", pdfUrl: "#" },
+      { name: "数A", videoUrl: "#", pdfUrl: "#" },
+      { name: "数2", videoUrl: "#", pdfUrl: "#" },
+      { name: "数B", videoUrl: "#", pdfUrl: "#" },
+      { name: "数3", videoUrl: "#", pdfUrl: "#" },
+      { name: "数C", videoUrl: "#", pdfUrl: "#" },
+      {
+        name: "大数1",
+        units: [
+          { name: "解析学", videoUrl: "#", pdfUrl: "#" },
+          { name: "微積分学", videoUrl: "#", pdfUrl: "#" },
+          { name: "線形代数学", videoUrl: "#", pdfUrl: "#" },
+        ],
+      },
+      {
+        name: "大数2",
+        units: [
+          { name: "理論学", videoUrl: "#", pdfUrl: "#" },
+          { name: "集合論", videoUrl: "#", pdfUrl: "#" },
+          { name: "位相空間論", videoUrl: "#", pdfUrl: "#" },
+        ],
+      },
+      {
+        name: "大数3",
+        units: [
+          { name: "解析学", videoUrl: "#", pdfUrl: "#" },
+          { name: "代数学", videoUrl: "#", pdfUrl: "#" },
+          { name: "幾何学", videoUrl: "#", pdfUrl: "#" },
+        ],
+      },
+    ],
+  },
+  {
+    category: "物理",
+    subs: [
+      { name: "力学", videoUrl: "#", pdfUrl: "#" },
+      { name: "熱", videoUrl: "#", pdfUrl: "#" },
+      { name: "波動", videoUrl: "#", pdfUrl: "#" },
+      { name: "電気", videoUrl: "#", pdfUrl: "#" },
+      { name: "原子", videoUrl: "#", pdfUrl: "#" },
+    ],
+  },
+  {
+    category: "化学",
+    subs: [
+      { name: "有機化学", videoUrl: "#", pdfUrl: "#" },
+      { name: "無機化学", videoUrl: "#", pdfUrl: "#" },
+      { name: "理論化学", videoUrl: "#", pdfUrl: "#" },
+    ],
+  },
+];
+
+// ---------- 課題(PDF + 解説YouTube) ----------
+// 「・」= 大分類 (category)
+// 「ー」= 教材名 (book)
+// 「ーー」= 単元 (unit)  ※なくてもOK。ある場合は book.units に書く
+// 各項目は videoUrl(解説YouTube) と pdfUrl(課題PDF) の2つを持てます。
+// 片方だけ使いたい場合は "#" のままでもOK(ボタンはグレーのまま押せなくなります)。
+const ASSIGNMENT_DATA = [
+  {
+    category: "数学",
+    books: [
+      {
+        name: "コネクト",
+        units: [
+          { name: "数2", videoUrl: "#", pdfUrl: "#" },
+          { name: "数B", videoUrl: "#", pdfUrl: "#" },
+          { name: "数3", videoUrl: "#", pdfUrl: "#" },
+          { name: "数C", videoUrl: "#", pdfUrl: "#" },
+        ],
+      },
+      {
+        name: "チャート",
+        units: [
+          { name: "数2", videoUrl: "https://www.youtube.com/playlist?list=PLRBqGkzCImQ4", pdfUrl: "https://drive.google.com/file/d/1xWGSO6dWk8n250XxPW8TF1jYcHAt95aJ/view?usp=drive_link" },
+          { name: "数B", videoUrl: "#", pdfUrl: "#" },
+          { name: "数3", videoUrl: "#", pdfUrl: "#" },
+          { name: "数C", videoUrl: "#", pdfUrl: "#" },
+        ],
+      },
+    ],
+  },
+  {
+    category: "物理",
+    books: [
+      {
+        name: "リードα",
+        units: [
+          { name: "力学", videoUrl: "https://www.youtube.com/playlist?list=PLm-jW0avt1wP0O_m6L-FDyc7Z-Rs35V8F", pdfUrl: "#" },
+          { name: "熱", videoUrl: "#", pdfUrl: "#" },
+          { name: "波動", videoUrl: "#", pdfUrl: "#" },
+          { name: "電気", videoUrl: "#", pdfUrl: "#" },
+          { name: "原子", videoUrl: "#", pdfUrl: "#" },
+        ],
+      },
+    ],
+  },
+];
+</script>
+<script>
+// ============================================================
+// このファイルは基本的に編集不要です。
+// 中身を変えたいときは data.js を編集してください。
+// ============================================================
+
+/* ---------- 認証 ---------- */
+const AUTH_STORAGE_KEY = "site_auth_remember_v1";
+
+function isRemembered() {
+  return localStorage.getItem(AUTH_STORAGE_KEY) === "true";
+}
+
+// 入力文字列をSHA-256でハッシュ化して16進文字列で返す
+async function sha256Hex(text) {
+  const enc = new TextEncoder().encode(text);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", enc);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+function setupAuth() {
+  const gate = document.getElementById("auth-gate");
+  const appRoot = document.getElementById("app-root");
+  const form = document.getElementById("auth-form");
+  const input = document.getElementById("auth-password");
+  const rememberBox = document.getElementById("auth-remember");
+  const errorMsg = document.getElementById("auth-error");
+  const submitBtn = form.querySelector("button[type='submit']");
+
+  function unlock() {
+    gate.style.display = "none";
+    appRoot.style.display = "";
+  }
+
+  if (isRemembered()) {
+    unlock();
+    return;
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    const inputHash = await sha256Hex(input.value);
+
+    if (inputHash === SITE_PASSWORD_HASH) {
+      if (rememberBox.checked) {
+        localStorage.setItem(AUTH_STORAGE_KEY, "true");
+      }
+      errorMsg.style.display = "none";
+      unlock();
+    } else {
+      errorMsg.style.display = "block";
+      input.value = "";
+      input.focus();
+    }
+    submitBtn.disabled = false;
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  setupAuth();
+  renderTree("lecture-tree", LECTURE_DATA, {
+    subKey: "subs",
+    subChildKey: null,
+  });
+  renderAssignmentTree("assignment-tree", ASSIGNMENT_DATA);
+  setupNav();
+});
+
+/* ---------- 同じ階層内で1つだけ開く(他は自動で閉じる) ---------- */
+function toggleExclusive(target, container, siblingSelector) {
+  const wasOpen = target.classList.contains("open");
+  container.querySelectorAll(`:scope > ${siblingSelector}`).forEach((el) => {
+    el.classList.remove("open");
+  });
+  if (!wasOpen) target.classList.add("open");
+}
+
+/* ---------- 解説ページ用の1行(YouTube解説 + PDF資料)を作る ---------- */
+function buildLectureRow(name, dashClass, videoUrl, pdfUrl) {
+  const row = document.createElement("div");
+  row.className = "assignment-row";
+
+  const nameEl = document.createElement("span");
+  nameEl.className = "sub-name";
+  nameEl.innerHTML = `<span class="dash">${dashClass}</span>${name}`;
+
+  const actions = document.createElement("div");
+  actions.className = "assignment-actions";
+
+  const hasVideo = videoUrl && videoUrl !== "#";
+  const hasPdf = pdfUrl && pdfUrl !== "#";
+
+  const videoLink = document.createElement("a");
+  videoLink.className = "goto goto-video" + (hasVideo ? "" : " goto-disabled");
+  videoLink.textContent = "解説動画";
+  if (hasVideo) {
+    videoLink.href = videoUrl;
+    videoLink.target = "_blank";
+    videoLink.rel = "noopener";
+  } else {
+    videoLink.href = "#";
+    videoLink.addEventListener("click", (e) => e.preventDefault());
+  }
+
+  const pdfLink = document.createElement("a");
+  pdfLink.className = "goto goto-pdf" + (hasPdf ? "" : " goto-disabled");
+  pdfLink.textContent = "配布資料";
+  if (hasPdf) {
+    pdfLink.href = pdfUrl;
+    pdfLink.target = "_blank";
+    pdfLink.rel = "noopener";
+  } else {
+    pdfLink.href = "#";
+    pdfLink.addEventListener("click", (e) => e.preventDefault());
+  }
+
+  actions.appendChild(videoLink);
+  actions.appendChild(pdfLink);
+
+  row.appendChild(nameEl);
+  row.appendChild(actions);
+  return row;
+}
+
+/* ---------- 解説ページ用ツリー (category > subs > units?) ---------- */
+function renderTree(mountId, data) {
+  const mount = document.getElementById(mountId);
+  mount.innerHTML = "";
+
+  data.forEach((cat) => {
+    const catEl = document.createElement("div");
+    catEl.className = "category";
+
+    const head = document.createElement("button");
+    head.className = "category-head";
+    head.innerHTML = `
+      <span class="label"><span class="bullet">・</span>${cat.category}</span>
+      <span class="chevron"></span>
+    `;
+    head.addEventListener("click", () => toggleExclusive(catEl, mount, ".category"));
+
+    const subList = document.createElement("div");
+    subList.className = "sub-list";
+
+    cat.subs.forEach((sub) => {
+      const item = document.createElement("div");
+      item.className = "sub-item";
+
+      const hasUnits = Array.isArray(sub.units) && sub.units.length > 0;
+
+      if (hasUnits) {
+        const btn = document.createElement("button");
+        btn.className = "sub-row";
+        btn.innerHTML = `
+          <span class="sub-name"><span class="dash">ー</span>${sub.name}</span>
+          <span class="chevron" style="width:7px;height:7px;"></span>
+        `;
+        btn.addEventListener("click", () => toggleExclusive(item, subList, ".sub-item"));
+        item.appendChild(btn);
+
+        const unitList = document.createElement("div");
+        unitList.className = "unit-list";
+        sub.units.forEach((unit) => {
+          const uItem = document.createElement("div");
+          uItem.className = "unit-item";
+          uItem.appendChild(buildLectureRow(unit.name, "ーー", unit.videoUrl, unit.pdfUrl));
+          unitList.appendChild(uItem);
+        });
+        item.appendChild(unitList);
+      } else {
+        item.appendChild(buildLectureRow(sub.name, "ー", sub.videoUrl, sub.pdfUrl));
+      }
+
+      subList.appendChild(item);
+    });
+
+    catEl.appendChild(head);
+    catEl.appendChild(subList);
+    mount.appendChild(catEl);
+  });
+}
+
+/* ---------- 課題ページ用の1行(YouTube解説 + PDF)を作る ---------- */
+function buildAssignmentRow(name, dashClass, videoUrl, pdfUrl) {
+  const row = document.createElement("div");
+  row.className = "assignment-row";
+
+  const nameEl = document.createElement("span");
+  nameEl.className = "sub-name";
+  nameEl.innerHTML = `<span class="dash">${dashClass}</span>${name}`;
+
+  const actions = document.createElement("div");
+  actions.className = "assignment-actions";
+
+  const hasVideo = videoUrl && videoUrl !== "#";
+  const hasPdf = pdfUrl && pdfUrl !== "#";
+
+  const videoLink = document.createElement("a");
+  videoLink.className = "goto goto-video" + (hasVideo ? "" : " goto-disabled");
+  videoLink.textContent = "解説動画";
+  if (hasVideo) {
+    videoLink.href = videoUrl;
+    videoLink.target = "_blank";
+    videoLink.rel = "noopener";
+  } else {
+    videoLink.href = "#";
+    videoLink.addEventListener("click", (e) => e.preventDefault());
+  }
+
+  const pdfLink = document.createElement("a");
+  pdfLink.className = "goto goto-pdf" + (hasPdf ? "" : " goto-disabled");
+  pdfLink.textContent = "課題PDF";
+  if (hasPdf) {
+    pdfLink.href = pdfUrl;
+    pdfLink.target = "_blank";
+    pdfLink.rel = "noopener";
+  } else {
+    pdfLink.href = "#";
+    pdfLink.addEventListener("click", (e) => e.preventDefault());
+  }
+
+  actions.appendChild(videoLink);
+  actions.appendChild(pdfLink);
+
+  row.appendChild(nameEl);
+  row.appendChild(actions);
+  return row;
+}
+
+/* ---------- 課題ページ用ツリー (category > books > units?) ---------- */
+function renderAssignmentTree(mountId, data) {
+  const mount = document.getElementById(mountId);
+  mount.innerHTML = "";
+
+  data.forEach((cat) => {
+    const catEl = document.createElement("div");
+    catEl.className = "category";
+
+    const head = document.createElement("button");
+    head.className = "category-head";
+    head.innerHTML = `
+      <span class="label"><span class="bullet">・</span>${cat.category}</span>
+      <span class="chevron"></span>
+    `;
+    head.addEventListener("click", () => toggleExclusive(catEl, mount, ".category"));
+
+    const subList = document.createElement("div");
+    subList.className = "sub-list";
+
+    cat.books.forEach((book) => {
+      const item = document.createElement("div");
+      item.className = "sub-item";
+
+      const hasUnits = Array.isArray(book.units) && book.units.length > 0;
+
+      if (hasUnits) {
+        const btn = document.createElement("button");
+        btn.className = "sub-row";
+        btn.innerHTML = `
+          <span class="sub-name"><span class="dash"></span>${book.name}</span>
+          <span class="chevron" style="width:7px;height:7px;"></span>
+        `;
+        btn.addEventListener("click", () => toggleExclusive(item, subList, ".sub-item"));
+        item.appendChild(btn);
+
+        const unitList = document.createElement("div");
+        unitList.className = "unit-list";
+        book.units.forEach((unit) => {
+          const uItem = document.createElement("div");
+          uItem.className = "unit-item";
+          uItem.appendChild(buildAssignmentRow(unit.name, "ーー", unit.videoUrl, unit.pdfUrl));
+          unitList.appendChild(uItem);
+        });
+        item.appendChild(unitList);
+      } else {
+        item.appendChild(buildAssignmentRow(book.name, "ー", book.videoUrl, book.pdfUrl));
+      }
+
+      subList.appendChild(item);
+    });
+
+    catEl.appendChild(head);
+    catEl.appendChild(subList);
+    mount.appendChild(catEl);
+  });
+}
+
+/* ---------- ナビゲーション(ページ切替) ---------- */
+function setupNav() {
+  const links = document.querySelectorAll("[data-page-link]");
+  const pages = document.querySelectorAll(".page");
+  const toggle = document.getElementById("menu-toggle");
+  const nav = document.getElementById("main-nav");
+
+  function showPage(id) {
+    pages.forEach((p) => p.classList.toggle("active", p.id === id));
+    links.forEach((l) => l.classList.toggle("active", l.dataset.pageLink === id));
+    window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
+    nav.classList.remove("open");
+    history.replaceState(null, "", "#" + id);
+  }
+
+  links.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      showPage(link.dataset.pageLink);
+    });
+  });
+
+  toggle.addEventListener("click", () => nav.classList.toggle("open"));
+
+  const initial = window.location.hash.replace("#", "") || "home";
+  showPage(document.getElementById(initial) ? initial : "home");
+}
+</script>
+</body>
+</html>
