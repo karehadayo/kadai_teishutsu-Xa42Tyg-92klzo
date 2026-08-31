@@ -991,7 +991,7 @@ function buildAssignmentRow(name, dashClass, videoUrl, pdfUrl) {
 
   const videoLink = document.createElement("a");
   videoLink.className = "goto goto-video" + (hasVideo ? "" : " goto-disabled");
-  videoLink.textContent = "解説動画";
+  videoLink.textContent = "思考過程";
   if (hasVideo) {
     videoLink.href = videoUrl;
     videoLink.target = "_blank";
